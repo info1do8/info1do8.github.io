@@ -1,0 +1,95 @@
+body {
+background-color: thistle;
+border: 2px solid yellow;	/* ramka grubość, ciągła, kolor*/
+border-radius: 20px;		/* zaokrąglenie */
+font-family: sans-serif;
+color: #111111;
+margin-left: auto;
+margin-right: auto;
+max-width: 1024px;
+min-width:256px;
+padding-top: 8px;	
+padding-bottom: 24px;
+padding-left: 24px;
+padding-right: 24px;
+}
+
+nav ul {		/* styl dla nawigacji */
+list-style-type:none;		/* usuwa punktory z listy */
+background-color: #B577B5;
+border: 2px solid yellow;
+border-radius: 10px;
+font-family: sans-serif;
+font-weight:bold;	/* pogrubia tekst i poprawia jego czytelność */
+padding: 16px;		/* odstęp od obramowania */
+}
+nav ul li {
+display: inline;	/* ustawia odsyłacze w linii poziomej */
+border-right: 2px solid yellow;	/* linia po prawej stronie odsyłaczy */
+width: 10%;
+padding-right: 8px;
+padding-left: 8px;
+}
+nav ul li:last-child{	/* usuwa kreskę w ostatnich elementach */
+border-right: none;
+}
+nav ul li a {
+text-decoration:none;	/* usuwa podkreślenie w odsyłaczach */
+color: #111111;
+}
+nav li.selected {
+color: yellow;
+}
+nav li a:hover {	/* pseudoklasa hover- tam, gdzie wskazuje kursor myszy */
+text-decoration: underline;
+}
+table tr:hover {	/*zaznacza wiersz tabeli */
+background-color: white;
+}
+a: active {
+text-decoration: underline;
+background-color: white;
+}
+table first-child tr: hover {
+background-color: red;
+}
+p.wazne {		/* atrybut class*/
+border: 2px solid yellow;
+border-radius: 10px;
+padding: 8px;
+background-color: skyblue;
+}
+p.wazne::before {
+color: yellow;
+content: "Ważne! ";
+font-weight: bold;
+}
+table td ul {
+list-style-type: lower-alpha;
+}
+table {			/* tabela */
+font-size: 80%;
+width: 100%;
+/*border-collapse: collapse;	kondensowanie obramowań */
+border-radius:10px;
+}
+td {
+border: 2px solid #B577B5;;
+text-align: left;
+width: 31%;
+}
+th {
+text-align: centre;
+text-shadow: 5px 5px 20px yellow; #182019
+}
+th, td {
+padding: 8px;
+border-radius: 20px;
+}
+
+html {
+/* background: radial-gradient( circle, yellow, Blue 50%, LightCyan 50%, SkyBlue); */
+background: gray;
+/*background-size: 10px 10px;*/
+}
+
