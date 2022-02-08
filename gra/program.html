@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Nanonauci w akcji</title>
+</head>
+<body>
+<script>
+	// stałe
+	var CANVAS_WIDTH = 800;
+	var CANVAS_HEIGHT = 600;
+	var NANONAUT_WIDTH = 181;
+	var NANONAUT_HEIGHT = 229;
+	var GROUND_Y = 540;
+	var NANONAUT_Y_ACCELERATION= 1;
+	var SPACE_KEYCODE = 32;
+	var NANONAUT_JUMP_SPEED = 20;
+	var NANONAUT_X_SPEED = 5;
+	var BACKGROUND_WIDTH = 1000;
+	
+	// konfiguracja wstępna
+	var canvas = document.createElement('canvas');
+	var c = canvas.getContext('2d');
+	canvas.width = CANVAS_WIDTH;
+	canvas.height = CANVAS_HEIGHT;
+	document.body.appendChild(canvas);
+	
+	var nanonautImage = new Image();
+	nanonautImage.src = 'Nanonaut.png';
+	
+	var backgroundImage = new Image();
+	backgroundImage.src = 'background.png';
+		
+	var nanonautX = CANVAS_WIDTH / 2;
+	var nanonautY = GROUND_Y - NANONAUT_HEIGHT;
+	
+	var nanonautYSpeed = 0;
+	var nanonautIsInTheAir = false;
+	
+	var cameraX = 0;
+	var cameraY = 0;
+	
+	var spaceKeyIsPressed = false;
+		
+	window.addEventListener('keydown', onKeyDown);
+	window.addEventListener('keyup', onKeyUp);
+	
+	window.addEventListener('load', start);
+	
+	function start() {
+	window.requestAnimationFrame(mainLoop);
+	}
+	
+		
+	// pętla główna
+	function mainLoop() {
+	update();
+	draw();
+	window.requestAnimationFrame(mainLoop);
+	}
+	
+	// sterowanie
+	function onKeyDown(event) {
+	if (event.keyCode === SPACE_KEYCODE) {
+	console.log("Naciśnięto spację.");
+	spaceKeyIsPressed = true;
+	}
+	}
+	
+	function onKeyUp(event) {
+	if (event.keyCode === SPACE_KEYCODE) {
+	console.log("Naciśnięto spację. up");
+	spaceKeyIsPressed = false;
+	}
+	}
+	// aktualizacja
+	function update() {
+	nanonautX = nanonautX + NANONAUT_X_SPEED;
+	if (spaceKeyIsPressed && !nanonautIsInTheAir) {
+	nanonautYSpeed = -NANONAUT_JUMP_SPEED;
+	nanonautIsInTheAir = true; 
+	}
+	// zaktualizuj Nanonautę
+	nanonautY = nanonautY + nanonautYSpeed;
+	nanonautYSpeed = nanonautYSpeed + NANONAUT_Y_ACCELERATION;
+	if (nanonautY > (GROUND_Y - NANONAUT_HEIGHT)) {
+	nanonautY = GROUND_Y - NANONAUT_HEIGHT;
+	nanonautYSpeed = 0;
+	nanonautIsInTheAir = false;
+	}
+	
+	// aktualizacja kamery
+	cameraX = nanonautX - 150;
+	}
+	// rysowanie
+	function draw () {
+	
+	// narysuj niebo
+	c.fillStyle = 'LightSkyBlue';
+	c.fillRect(0, 0, CANVAS_WIDTH, GROUND_Y - 40);
+	
+	// Narysuj tło
+	var backgroundX = - (cameraX % BACKGROUND_WIDTH);
+	c.drawImage(backgroundImage, backgroundX, -210);
+	c.drawImage(backgroundImage, backgroundX + BACKGROUND_WIDTH, -210);
+		
+	// narysuj ziemię
+	c.fillStyle = 'ForestGreen';
+	c.fillRect(0, GROUND_Y - 40, CANVAS_WIDTH, CANVAS_HEIGHT - GROUND_Y - 40);
+	//c.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+	
+	// Narysuj Nanonautę
+	c.drawImage(nanonautImage, nanonautX - cameraX, nanonautY - cameraY);
+	}
+	
+</script>
+</body>
+</html>
